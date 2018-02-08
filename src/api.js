@@ -22,6 +22,10 @@ export default {
     }).then(response => response.json())
   },
 
+  signUp(data) {
+    return this.post('signUp', { data })
+  },
+
   login(credentials) {
     return this.post('login', { credentials })
   },

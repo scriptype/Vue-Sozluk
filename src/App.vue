@@ -12,4 +12,10 @@ export default {
 </script>
 
 
-<style></style>
+<style lang="scss">
+@import "./styles/app";
+
+#app {
+  height: 100%;
+}
+</style>
