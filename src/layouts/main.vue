@@ -62,7 +62,6 @@ export default {
 
   methods: {
     toggleLeftPanelVisibility() {
-      console.log('clicked', this.isLeftPanelVisible)
       this.isLeftPanelVisible = !this.isLeftPanelVisible
     }
   }
@@ -94,7 +93,6 @@ export default {
 
 .left-panel-header {
   position: relative;
-  background: yellow;
 }
 
 .left-panel-toggler {
@@ -109,7 +107,6 @@ export default {
 .left-panel {
   flex: 1;
   display: none;
-  background: red;
 }
 
 .middle-panel {
