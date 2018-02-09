@@ -10,6 +10,10 @@ export default class Model {
     ), {})
   }
 
+  toJSON() {
+    return this.data
+  }
+
   validateGet(key) {
     const { name, scheme } = this
 
