@@ -1,1 +1,37 @@
 $max-sm: 640px;
+
+@media (max-width: $max-sm) {
+    .display-mobile {
+        display: block !important;
+    }
+
+    .display-inline-mobile {
+        display: inline !important;
+    }
+
+    .display-inline-block-mobile {
+        display: inline-block !important;
+    }
+
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: $max-sm + 1) {
+    .hide-desktop {
+        display: none !important;
+    }
+
+    .display-desktop {
+        display: block !important;
+    }
+
+    .display-inline-desktop {
+        display: inline !important;
+    }
+
+    .display-inline-block-desktop {
+        display: inline-block !important;
+    }
+}
