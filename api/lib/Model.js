@@ -1,7 +1,7 @@
-import InvalidKeyError from './InvalidKeyError'
-import InvalidTypeError from './InvalidTypeError'
+const InvalidKeyError = require('./InvalidKeyError')
+const InvalidTypeError = require('./InvalidTypeError')
 
-export default class Model {
+module.exports =  class Model {
   constructor(name, scheme) {
     this.name = name
     this.scheme = scheme

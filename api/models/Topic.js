@@ -1,6 +1,6 @@
-import Model from '../lib/Model'
+const Model = require('../lib/Model')
 
-export default class TopicModel extends Model {
+module.exports = class TopicModel extends Model {
   constructor(data) {
     const scheme = {
       createdAt: Number,
