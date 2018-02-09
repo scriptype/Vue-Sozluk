@@ -9,6 +9,8 @@ export default {
     entries: [],
     users: [],
     topics: [],
+    signUpStatus: null,
+    signUpError: null,
     loginStatus: null,
     loginError: null,
     userToken: null,
@@ -101,6 +103,21 @@ export default {
   },
 
   mutations: {
+
+    // SignUp
+    signUpStarted(state) {
+      state.signUpStatus = 'started'
+    },
+
+    signUpSuccess(state, token) {
+      state.signUpStatus = 'success'
+      state.usertoken = token
+    },
+
+    signUpFail(state, error) {
+      state.signUpStatus = 'fail'
+      state.signUpError = error
+    },
 
     // Login
     loginStarted(state) {

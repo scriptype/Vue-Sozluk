@@ -4,30 +4,35 @@ export default {
   create(endpoint, payload) {
     return fetch(`${API_URL}/${endpoint}`, {
       method: 'PUT',
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
     }).then(response => response.json())
   },
 
-  get(endpoint, query) {
+  get(endpoint) {
     return fetch(`${API_URL}/${endpoint}`, {
-      method: 'GET',
-      body: JSON.stringify({ query })
+      method: 'GET'
     }).then(response => response.json())
   },
 
   post(endpoint, payload) {
     return fetch(`${API_URL}/endpoint`, {
       method: 'POST',
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
     }).then(response => response.json())
   },
 
   signUp(data) {
-    return this.post('signUp', { data })
+    return this.post('signUp', data)
   },
 
   login(credentials) {
-    return this.post('login', { credentials })
+    return this.post('login', credentials)
   },
 
   logout(token) {
@@ -35,26 +40,26 @@ export default {
   },
 
   createEntry(entry) {
-    return this.create('entry', { entry })
+    return this.create('entry', entry)
   },
 
   createUser(user) {
-    return this.create('user', { user })
+    return this.create('user', user)
   },
 
   createTopic(topic) {
-    return this.create('topic', { topic })
+    return this.create('topic', topic)
   },
 
   getEntry(entryID) {
-    return this.get('entry', { entryID })
+    return this.get(`entries/${entryID}`)
   },
 
   getUser(userID) {
-    return this.get('user', { userID })
+    return this.get(`users/${userID}`)
   },
 
   getTopic(topicID) {
-    return this.get('topic', { topicID })
+    return this.get(`topics/${topicID}`)
   }
 }
