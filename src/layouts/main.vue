@@ -10,18 +10,16 @@
       <aside class="left-panel-container">
         <header class="layout__element left-panel-header">
           <slot name="left-panel-header"></slot>
-          <label
-            class="left-panel-toggler"
-            for="left-panel-toggle">
-          </label>
+          <span
+            class="left-panel-toggler display-mobile"
+            @click="toggleLeftPanelVisibility"
+          ></span>
         </header>
 
-        <input
-          type="checkbox"
-          id="left-panel-toggle"
-          class="left-panel-toggle" />
-
-        <aside class="layout__element left-panel">
+        <aside
+            class="layout__element left-panel"
+            :class="leftPanelClassObject"
+        >
           <slot name="left-panel"></slot>
         </aside>
       </aside>
@@ -45,7 +43,29 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+
+  data() {
+    return {
+      isLeftPanelVisible: false
+    }
+  },
+
+  computed: {
+    leftPanelClassObject() {
+      return {
+        'display-desktop': true,
+        'display-mobile': this.isLeftPanelVisible
+      }
+    }
+  },
+
+  methods: {
+    toggleLeftPanelVisibility() {
+      console.log('clicked', this.isLeftPanelVisible)
+      this.isLeftPanelVisible = !this.isLeftPanelVisible
+    }
+  }
 }
 </script>
 
@@ -86,24 +106,10 @@ export default {
   cursor: pointer;
 }
 
-.left-panel-toggle {
-  display: none;
-
-  &:checked + .left-panel {
-    width: 100%;
-    height: auto;
-    overflow: auto;
-    opacity: 1;
-  }
-}
-
 .left-panel {
-  height: 0;
   flex: 1;
-  overflow: hidden;
+  display: none;
   background: red;
-  opacity: 0;
-  transition: all .3s;
 }
 
 .middle-panel {
@@ -119,18 +125,16 @@ export default {
     flex-direction: row;
   }
 
-  .left-panel-toggler {
-    display: none;
-  }
-
   .left-panel-container {
     width: 240px;
   }
 
+  .left-panel-toggler {
+    display: none;
+  }
+
   .left-panel {
-    height: auto;
-    overflow: auto;
-    opacity: 1;
+    display: block;
   }
 }
 
