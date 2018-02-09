@@ -14,7 +14,7 @@ usersApi.get('/', (req, res) => {
 usersApi.put('/', (req, res) => {
   const modelData = {
     createdAt: Date.now(),
-    name: req.body.user.name,
+    name: req.body.name,
     id: shortid.generate()
   }
 
@@ -23,27 +23,27 @@ usersApi.put('/', (req, res) => {
     db.createNode('users', model.toJSON())
       .then(() => res.sendStatus(201))
       .catch(err => res.sendStatus(500, err))
-  } catch (e) {
-    res.sendStatus(400)
+  } catch (err) {
+    res.status(400).send(err.toString())
   }
 })
 
 usersApi.delete('/', (req, res) => {
   db.flushTable('users')
     .then(() => res.sendStatus(204))
-    .catch(err => res.sendStatus(500, err))
+    .catch(err => res.status(500).send(err.toString()))
 })
 
 usersApi.get('/:id', (req, res) => {
   db.findNode('users', req.params.id)
     .then(node => res.json(node))
-    .catch(err => res.sendStatus(404, err))
+    .catch(err => res.status(404).send(err.toString()))
 })
 
 usersApi.delete('/:id', (req, res) => {
   db.deleteNode('users', req.params.id)
     .then(() => res.json(204))
-    .catch(err => res.sendStatus(500, err))
+    .catch(err => res.status(500).send(err.toString()))
 })
 
 module.exports = usersApi
