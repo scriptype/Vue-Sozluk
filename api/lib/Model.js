@@ -1,7 +1,8 @@
 const InvalidKeyError = require('./InvalidKeyError')
 const InvalidTypeError = require('./InvalidTypeError')
+const RequiredKeyError = require('./RequiredKeyError')
 
-module.exports =  class Model {
+module.exports = class Model {
   constructor(name, scheme) {
     this.name = name
     this.scheme = scheme
@@ -25,17 +26,19 @@ module.exports =  class Model {
   validateSet(key, value) {
     const { name, scheme } = this
 
-    this.validateGet(key)
+    if (scheme[key].required && !value) {
+      throw new RequiredKeyError(key, name)
+    }
 
     const candidateType = typeof value
-    const validType = typeof scheme[key]()
+    const validType = typeof scheme[key].type()
     if (candidateType !== validType) {
       throw new InvalidTypeError(candidateType, validType, key, name)
     }
   }
 
   set(data) {
-    Object.keys(data).forEach((key) => {
+    Object.keys(this.scheme).forEach((key) => {
       const value = data[key]
       this.validateSet(key, value)
       this.data[key] = value
