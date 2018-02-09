@@ -3,10 +3,22 @@ const Model = require('../lib/Model')
 module.exports = class EntryModel extends Model {
   constructor(data) {
     const scheme = {
-      createdAt: Number,
-      id: String,
-      userID: String,
-      topicID: String
+      createdAt: {
+        type: Number,
+        required: true
+      },
+      id: {
+        type: String,
+        required: true
+      },
+      userID: {
+        type: String,
+        required: true
+      },
+      topicID: {
+        type: String,
+        required: true
+      }
     }
 
     super('EntryModel', scheme)
