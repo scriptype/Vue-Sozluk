@@ -1,6 +1,7 @@
 const fs = require('fs')
+const path = require('path')
 
-const DB_PATH = '../db.json'
+const DB_PATH = path.resolve(__dirname, '..', 'db.json')
 
 function readDB() {
   return new Promise((resolve, reject) => {
@@ -22,10 +23,6 @@ function flush() {
       return resolve()
     })
   })
-}
-
-function readTable(tableName) {
-  return readDB().then(db => db[tableName])
 }
 
 /*
@@ -52,6 +49,10 @@ function createTable(tableName, initialData) {
     }
     return []
   })
+}
+
+function readTable(tableName) {
+  return readDB().then(db => db[tableName])
 }
 
 function flushTable(tableName) {
