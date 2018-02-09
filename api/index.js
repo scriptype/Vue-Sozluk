@@ -16,7 +16,8 @@ const corsWhiteList = [
 
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || corsWhiteList.indexOf(origin) > -1) {
+    const originIsUndefined = !origin || origin === 'null'
+    if (originIsUndefined || corsWhiteList.indexOf(origin) > -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -31,9 +32,9 @@ app.use(cors(corsOptions))
 
 // API Routing
 app.use('/', RootController)
-app.use('/entry', EntryController)
-app.use('/topic', TopicController)
-app.use('/user', UserController)
+app.use('/entries', EntryController)
+app.use('/topics', TopicController)
+app.use('/users', UserController)
 
 // Start the server
 app.listen(8081, () => {
