@@ -3,7 +3,7 @@
         padding: 1.5em;
         transition: all .3s;
 
-        @media (min-width: $max-sm) {
+        @media (min-width: $sm-max) {
             padding: 1em;
         }
     }

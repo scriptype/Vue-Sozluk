@@ -8,50 +8,52 @@
 
   <form class="login-container" v-else-if="step === 'login'">
     <label class="login-container__row" for="username">
-      E-Mail / Kullanıcı Adı: <input id="username" type="text" />
+      E-Mail / Nick: <text-input id="username" />
     </label>
 
     <label class="login-container__row" for="password">
-      Şifre: <input id="password" type="password" />
+      Şifre: <text-input id="password" type="password" />
     </label>
 
-    <div class="login-container__button-container">
+    <div class="login-container__footer">
+      <a href="#" @click="onClickSignUp">← Kaydol</a>
       <my-button>Giriş</my-button>
     </div>
 
-    <a href="#" @click="onClickSignUp">Kaydol</a>
   </form>
 
 
   <form class="signup-container" v-else-if="step === 'signup'">
     <label class="login-container__row" for="email">
-      E-Mail: <input id="email" type="email" />
+      E-Mail: <text-input id="email" type="email" />
     </label>
 
     <label class="login-container__row" for="username">
-      Kullanıcı Adı: <input id="username" type="text" />
+      Nick: <text-input id="username" />
     </label>
 
     <label class="login-container__row" for="password">
-      Şifre: <input id="password" type="password" />
+      Şifre: <text-input id="password" type="password" />
     </label>
 
-    <div class="login-container__button-container">
+    <div class="login-container__footer">
+      <a href="#" @click="onClickLogin">← Üye Girişi</a>
       <my-button>Kaydol</my-button>
     </div>
 
-    <a href="#" @click="onClickLogin">Üye Girişi</a>
   </form>
 </template>
 
 <script>
 import MyButton from '@/components/my-button'
+import TextInput from '@/components/text-input'
 
 export default {
   name: 'LoginSignupForm',
 
   components: {
-    MyButton
+    MyButton,
+    TextInput
   },
 
   data() {
@@ -73,20 +75,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.initial-container { }
+@import "../styles/helpers/responsive";
 
-.login-container {
+.login-container,
+.signup-container {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 222px;
+
+  @media (min-width: $sm-max + 1) {
+    width: 280px;
+  }
 
   &__row {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    margin-bottom: .5em;
+
+    @media (min-width: $sm-max + 1) {
+      flex-direction: row;
+    }
   }
 
-  &__button-container {
-    text-align: right;
+  &__footer {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

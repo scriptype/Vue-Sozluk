@@ -1,8 +1,7 @@
 <template>
   <main-layout>
-
-    <header slot="top-panel">
-      <top-panel :user="user" />
+    <header slot="top-panel" slot-scope="props">
+      <top-panel :user="user" :class="props.className" />
     </header>
 
     <div slot="left-panel-header">
@@ -20,7 +19,6 @@
     <main slot="main-content">
       main
     </main>
-
   </main-layout>
 </template>
 

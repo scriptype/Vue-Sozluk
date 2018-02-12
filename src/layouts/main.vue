@@ -1,8 +1,8 @@
 <template>
   <div class="layout main-layout">
 
-    <nav class="layout__element top-panel">
-      <slot name="top-panel"></slot>
+    <nav class="top-panel">
+      <slot name="top-panel" className="layout__element"></slot>
     </nav>
 
     <div class="main-container">
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'MainLayout',
 
   data() {
     return {
@@ -81,9 +81,7 @@ export default {
   flex: 1;
 }
 
-.top-panel {
-  height: 96px;
-}
+.top-panel {}
 
 .left-panel-container {
   display: flex;

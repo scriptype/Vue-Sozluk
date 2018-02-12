@@ -46,12 +46,17 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/helpers/variables";
+@import "../styles/helpers/responsive";
 
 .button {
-  padding: .2em .8em;
+  padding: .4em 1em;
   border: none;
   border-radius: 3px;
   font: inherit;
+
+  @media (min-width: $sm-max + 1) {
+    padding: .2em .8em;
+  }
 }
 
 .button--primary {

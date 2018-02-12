@@ -1,14 +1,22 @@
 <template>
-  <form>
-    <input type="text" placeholder="search" />
-    <button type="button">Ara</button>
+  <form class="search-form">
+    <text-input size="small" placeholder="search" />
+    <my-button level="secondary">Ara</my-button>
   </form>
 </template>
 
 <script>
+import MyButton from '@/components/my-button'
+import TextInput from '@/components/text-input'
+
 export default {
-  name: 'SearchForm'
+  name: 'SearchForm',
+  components: {
+    MyButton,
+    TextInput
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+</style>

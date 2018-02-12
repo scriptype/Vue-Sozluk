@@ -1,6 +1,6 @@
-$max-sm: 640px;
+$sm-max: 640px;
 
-@media (max-width: $max-sm) {
+@media (max-width: $sm-max) {
     .display-mobile {
         display: block !important;
     }
@@ -18,7 +18,7 @@ $max-sm: 640px;
     }
 }
 
-@media (min-width: $max-sm + 1) {
+@media (min-width: $sm-max + 1) {
     .hide-desktop {
         display: none !important;
     }
