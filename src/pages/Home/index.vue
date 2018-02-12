@@ -2,7 +2,7 @@
   <main-layout>
 
     <header slot="top-panel">
-      top
+      <top-panel :user="user" />
     </header>
 
     <div slot="left-panel-header">
@@ -27,11 +27,21 @@
 
 <script>
 import MainLayout from '@/layouts/main'
+import TopPanel from './top-panel'
 
 export default {
   name: 'Home',
   components: {
-    MainLayout
+    MainLayout,
+    TopPanel
+  },
+  data() {
+    return {
+      user: {
+        loggedIn: false,
+        nick: 'Enes'
+      }
+    }
   }
 }
 </script>
