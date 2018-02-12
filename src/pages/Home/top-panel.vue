@@ -1,5 +1,5 @@
 <template>
-  <div class="top-panel-container">
+  <div :class="['top-panel-container', expandingCollapsingPanelClassObject]">
     <sozluk-logo class="sozluk-logo" />
 
     <hr
@@ -48,7 +48,10 @@ export default {
 
   data() {
     return {
-      toolsVisible: false
+      toolsVisible: false,
+      isToolsLeaving: false,
+      isToolsEntering: false,
+      toolsVisiblityAnimationDuration: 0.35
     }
   },
 
@@ -59,7 +62,16 @@ export default {
     toolsVisibleClassObject() {
       return {
         'display-desktop': true,
-        'hide-mobile': !this.toolsVisible
+        'hide-mobile': !this.toolsVisible,
+        tools: true,
+        entering: this.isToolsEntering,
+        leaving: this.isToolsLeaving
+      }
+    },
+    expandingCollapsingPanelClassObject() {
+      return {
+        expanding: this.isToolsEntering,
+        collapsing: this.isToolsLeaving
       }
     }
   },
@@ -69,7 +81,24 @@ export default {
       console.log('go to profile')
     },
     toggleToolsVisibility() {
-      this.toolsVisible = !this.toolsVisible
+      const isVisible = this.toolsVisible
+      if (isVisible) {
+        this.isToolsLeaving = true
+        this.isToolsEntering = false
+        setTimeout(() => {
+          this.toolsVisible = false
+          this.isToolsLeaving = false
+          this.isToolsEntering = false
+        }, this.toolsVisiblityAnimationDuration * 1000)
+      } else {
+        this.toolsVisible = true
+        this.isToolsEntering = true
+        this.isToolsLeaving = false
+        setTimeout(() => {
+          this.isToolsLeaving = false
+          this.isToolsEntering = false
+        }, this.toolsVisiblityAnimationDuration * 1000)
+      }
     }
   }
 }
@@ -124,6 +153,50 @@ export default {
   .user-profile-mini,
   .login-signup-form {
     margin-top: 1.8em;
+  }
+}
+
+.top-panel-container.expanding {
+  max-height: 185px;
+  animation: panel-expanding .4s 1 forwards;
+}
+
+.top-panel-container.collapsing {
+  max-height: 530px;
+  animation: panel-collapsing .4s 1 forwards;
+}
+
+@keyframes panel-expanding {
+  to {
+    max-height: 530px;
+  }
+}
+
+@keyframes panel-collapsing {
+  to {
+    max-height: 185px;
+  }
+}
+
+.tools.entering {
+  opacity: 0;
+  animation: tools-entering .3s 1 forwards;
+}
+
+.tools.leaving {
+  opacity: 1;
+  animation: tools-leaving .3s 1 forwards;
+}
+
+@keyframes tools-entering {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tools-leaving {
+  to {
+    opacity: 0;
   }
 }
 </style>
