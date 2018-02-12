@@ -1,47 +1,49 @@
 <template>
-  <div class="initial-container" v-if="step === 'initial'">
-    <a @click.prevent="onClickLogin" href="#">Giriş</a>
-    {{ ' / ' }}
-    <a @click.prevent="onClickSignUp" href="#">Kaydol</a>
-  </div>
-
-
-  <form class="login-container" v-else-if="step === 'login'">
-    <label class="login-container__row" for="username">
-      E-Mail / Nick: <text-input id="username" />
-    </label>
-
-    <label class="login-container__row" for="password">
-      Şifre: <text-input id="password" type="password" />
-    </label>
-
-    <div class="login-container__footer">
-      <a href="#" @click="onClickSignUp">← Kaydol</a>
-      <my-button>Giriş</my-button>
+  <transition mode="out-in" name="login-steps">
+    <div key="initial" class="initial-container" v-if="step === 'initial'">
+      <a @click.prevent="onClickLogin" href="#">Giriş</a>
+      {{ ' / ' }}
+      <a @click.prevent="onClickSignUp" href="#">Kaydol</a>
     </div>
 
-  </form>
+
+    <form key="login" class="login-container" v-else-if="step === 'login'">
+      <label class="login-container__row" for="username">
+        E-Mail / Nick: <text-input id="username" />
+      </label>
+
+      <label class="login-container__row" for="password">
+        Şifre: <text-input id="password" type="password" />
+      </label>
+
+      <div class="login-container__footer">
+        <a href="#" @click="onClickSignUp">← Kaydol</a>
+        <my-button>Giriş</my-button>
+      </div>
+
+    </form>
 
 
-  <form class="signup-container" v-else-if="step === 'signup'">
-    <label class="login-container__row" for="email">
-      E-Mail: <text-input id="email" type="email" />
-    </label>
+    <form key="signup" class="signup-container" v-else-if="step === 'signup'">
+      <label class="login-container__row" for="email">
+        E-Mail: <text-input id="email" type="email" />
+      </label>
 
-    <label class="login-container__row" for="username">
-      Nick: <text-input id="username" />
-    </label>
+      <label class="login-container__row" for="username">
+        Nick: <text-input id="username" />
+      </label>
 
-    <label class="login-container__row" for="password">
-      Şifre: <text-input id="password" type="password" />
-    </label>
+      <label class="login-container__row" for="password">
+        Şifre: <text-input id="password" type="password" />
+      </label>
 
-    <div class="login-container__footer">
-      <a href="#" @click="onClickLogin">← Üye Girişi</a>
-      <my-button>Kaydol</my-button>
-    </div>
+      <div class="login-container__footer">
+        <a href="#" @click="onClickLogin">← Üye Girişi</a>
+        <my-button>Kaydol</my-button>
+      </div>
 
-  </form>
+    </form>
+  </transition>
 </template>
 
 <script>
@@ -102,5 +104,16 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.login-steps-enter-active, .login-steps-leave-active {
+  max-height: 260px;
+  transition: all .3s ease;
+}
+
+.login-steps-fade-enter, .login-steps-leave-to {
+  max-height: 200px;
+  opacity: 0;
+  transition: all .3s ease;
 }
 </style>
