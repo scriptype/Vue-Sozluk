@@ -1,10 +1,10 @@
 .layout {
     &__element {
-        padding: 1em;
+        padding: 1.5em;
         transition: all .3s;
 
         @media (min-width: $max-sm) {
-            padding: .5em;
+            padding: 1em;
         }
     }
 }
