@@ -1,25 +1,25 @@
 <template>
   <main-layout>
 
-    <div slot="top-panel">
+    <header slot="top-panel">
       top
-    </div>
+    </header>
 
     <div slot="left-panel-header">
       <h3>Başlıklar</h3>
     </div>
 
-    <div slot="left-panel">
+    <aside slot="left-panel">
       left
-    </div>
+    </aside>
 
-    <div slot="pre-main-content">
+    <section slot="pre-main-content">
       pre-main
-    </div>
+    </section>
 
-    <div slot="main-content">
+    <main slot="main-content">
       main
-    </div>
+    </main>
 
   </main-layout>
 </template>
