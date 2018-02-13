@@ -1,16 +1,17 @@
 <template>
   <main-layout>
-    <header slot="top-panel" slot-scope="props">
-      <top-panel :user="user" :class="props.className" />
-    </header>
+    <top-panel
+      slot="top-panel"
+      slot-scope="props"
+      :user="user"
+      :class="props.className" />
 
-    <div slot="left-panel-header">
-      <h3>Başlıklar</h3>
-    </div>
+    <left-panel-header
+      slot="left-panel-header" />
 
-    <aside slot="left-panel">
-      <left-panel />
-    </aside>
+    <left-panel
+      slot="left-panel"
+      :topics="recentTopics" />
 
     <section slot="pre-main-content">
       pre-main
@@ -24,10 +25,11 @@
 
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import MainLayout from '@/layouts/main'
 import TopPanel from './top-panel'
 import LeftPanel from './left-panel'
+import LeftPanelHeader from './left-panel-header'
 
 export default {
   name: 'Home',
@@ -35,7 +37,8 @@ export default {
   components: {
     MainLayout,
     TopPanel,
-    LeftPanel
+    LeftPanel,
+    LeftPanelHeader
   },
 
   data() {
@@ -45,6 +48,12 @@ export default {
         nick: 'Enes'
       }
     }
+  },
+
+  computed: {
+    ...mapState([
+      'recentTopics'
+    ])
   },
 
   methods: {
@@ -60,4 +69,4 @@ export default {
 </script>
 
 
-<style scoped></style>
+<style lang="scss" scoped></style>
