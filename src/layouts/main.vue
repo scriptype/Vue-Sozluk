@@ -1,39 +1,39 @@
 <template>
   <div class="layout main-layout">
 
-    <nav class="top-panel">
+    <nav class="main-layout__top-panel">
       <div class="layout__container">
         <slot name="top-panel" className="layout__element"></slot>
       </div>
     </nav>
 
     <div class="layout__container">
-      <div class="main-container">
+      <div class="main-layout__main-container">
 
-        <aside class="left-panel-container">
-          <header class="layout__element left-panel-header">
-            <slot name="left-panel-header"></slot>
+        <aside class="main-layout__left-panel-container">
+          <header class="main-layout__left-panel-header">
+            <slot name="left-panel-header" ></slot>
             <span
-              class="left-panel-toggler display-mobile"
+              class="main-layout__left-panel-toggler display-mobile"
               @click="toggleLeftPanelVisibility"
             ></span>
           </header>
 
           <aside
-              class="layout__element left-panel"
+              class="layout__element main-layout__left-panel"
               :class="leftPanelClassObject"
           >
             <slot name="left-panel"></slot>
           </aside>
         </aside>
 
-        <main class="middle-panel">
+        <main class="main-layout__middle-panel">
 
-          <div class="layout__element pre-main-content">
+          <div class="layout__element main-layout__pre-main-content">
             <slot name="pre-main-content"></slot>
           </div>
 
-          <div class="layout__element main-content">
+          <div class="layout__element main-layout__main-content">
             <slot name="main-content"></slot>
           </div>
 
@@ -81,67 +81,67 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
 
-.main-container {
-  display: flex;
-  width: $lg-max;
+  &__main-container {
+    display: flex;
+    width: $lg-max;
 
-  @media (max-width: $sm-max) {
+    @media (max-width: $sm-max) {
+      flex-direction: column;
+    }
+  }
+
+  &__top-panel {
+    background: $light-grey;
+  }
+
+  &__left-panel-container {
+    display: flex;
     flex-direction: column;
-  }
-}
+    transition: all .3s;
 
-.top-panel {
-  background: $light-grey;
-}
+    @media (min-width: $sm-max) {
+      width: 240px;
+    }
 
-.left-panel-container {
-  display: flex;
-  flex-direction: column;
-  transition: all .3s;
-
-  @media (min-width: $sm-max) {
-    width: 240px;
+    @media (min-width: $lg-max) {
+      width: 360px;
+    }
   }
 
-  @media (min-width: $lg-max) {
-    width: 360px;
+  &__left-panel-header {
+    position: relative;
   }
-}
 
-.left-panel-header {
-  position: relative;
-}
+  &__left-panel-toggler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 
-.left-panel-toggler {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+    @media (min-width: $sm-max) {
+      display: none;
+    }
+  }
 
-  @media (min-width: $sm-max) {
+  &__left-panel {
+    flex: 1;
     display: none;
+
+    @media (min-width: $sm-max) {
+      display: block;
+    }
   }
-}
 
-.left-panel {
-  flex: 1;
-  display: none;
-
-  @media (min-width: $sm-max) {
-    display: block;
+  &__middle-panel {
+    flex: 1;
+    width: 100%;
   }
-}
 
-.middle-panel {
-  flex: 1;
-  width: 100%;
-}
-
-.pre-main-content {
-  height: 72px;
+  &__pre-main-content {
+    height: 72px;
+  }
 }
 </style>
