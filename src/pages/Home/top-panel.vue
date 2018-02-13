@@ -114,7 +114,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: $light-grey;
 
   @media (min-width: $sm-max + 1) {
     flex-direction: row;
