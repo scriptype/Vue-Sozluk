@@ -1,3 +1,5 @@
+const querystring = require('querystring')
+
 const API_URL = 'http://localhost:8081'
 
 export default {
@@ -61,5 +63,20 @@ export default {
 
   getTopic(topicID) {
     return this.get(`topics/${topicID}`)
+  },
+
+  getRecentTopics(options) {
+    const defaultQuery = {
+      limit: 10,
+      page: 0,
+      sortBy: 'createdAt',
+      order: 1
+    }
+
+    const query = querystring.stringify(
+      Object.assign({}, defaultQuery, options)
+    )
+
+    return this.get(`topics?${query}`)
   }
 }
