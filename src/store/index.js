@@ -14,6 +14,7 @@ export default new Vuex.Store({
     signUpError: null,
     loginStatus: null,
     loginError: null,
+    getRecentTopicsError: null,
     userToken: null,
     createEntryStatus: null,
     createUserStatus: null,
@@ -182,6 +183,7 @@ export default new Vuex.Store({
 
     getRecentTopicsFail(state, error) {
       state.getRecentTopicsStatus = 'fail'
+      state.getRecentTopicsError = error
     },
 
     // User
