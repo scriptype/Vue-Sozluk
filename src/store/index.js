@@ -4,11 +4,12 @@ import api from '../api'
 
 Vue.use(Vuex)
 
-export default {
+export default new Vuex.Store({
   state: {
     entries: [],
     users: [],
     topics: [],
+    recentTopics: [],
     signUpStatus: null,
     signUpError: null,
     loginStatus: null,
@@ -98,6 +99,14 @@ export default {
         .createTopic(topic)
         .then(() => commit('createTopicSuccess', topic))
         .catch(() => commit('createTopicFail'))
+    },
+
+    getRecentTopics({ commit }) {
+      commit('getRecentTopicsStarted')
+      api
+        .getRecentTopics()
+        .then(topics => commit('getRecentTopicsSuccess', topics))
+        .catch(error => commit('getRecentTopicsFail', error))
     }
 
   },
@@ -162,6 +171,19 @@ export default {
       state.createEntryStatus = 'fail'
     },
 
+    getRecentTopicsStarted(state) {
+      state.getRecentTopicsStatus = 'started'
+    },
+
+    getRecentTopicsSuccess(state, topics) {
+      state.getRecentTopicsStatus = 'success'
+      state.recentTopics = topics
+    },
+
+    getRecentTopicsFail(state, error) {
+      state.getRecentTopicsStatus = 'fail'
+    },
+
     // User
     createUserStarted(state) {
       state.createUserStatus = 'started'
@@ -176,4 +198,4 @@ export default {
     }
 
   }
-}
+})
