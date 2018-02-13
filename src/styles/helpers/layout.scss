@@ -1,4 +1,9 @@
 .layout {
+    &__container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
     &__element {
         padding: 1.5em;
         transition: all .3s;

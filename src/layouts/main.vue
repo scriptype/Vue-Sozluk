@@ -2,39 +2,44 @@
   <div class="layout main-layout">
 
     <nav class="top-panel">
-      <slot name="top-panel" className="layout__element"></slot>
+      <div class="layout__container">
+        <slot name="top-panel" className="layout__element"></slot>
+      </div>
     </nav>
 
-    <div class="main-container">
+    <div class="layout__container">
+      <div class="main-container">
 
-      <aside class="left-panel-container">
-        <header class="layout__element left-panel-header">
-          <slot name="left-panel-header"></slot>
-          <span
-            class="left-panel-toggler display-mobile"
-            @click="toggleLeftPanelVisibility"
-          ></span>
-        </header>
+        <aside class="left-panel-container">
+          <header class="layout__element left-panel-header">
+            <slot name="left-panel-header"></slot>
+            <span
+              class="left-panel-toggler display-mobile"
+              @click="toggleLeftPanelVisibility"
+            ></span>
+          </header>
 
-        <aside
-            class="layout__element left-panel"
-            :class="leftPanelClassObject"
-        >
-          <slot name="left-panel"></slot>
+          <aside
+              class="layout__element left-panel"
+              :class="leftPanelClassObject"
+          >
+            <slot name="left-panel"></slot>
+          </aside>
         </aside>
-      </aside>
 
-      <main class="middle-panel">
+        <main class="middle-panel">
 
-        <div class="layout__element pre-main-content">
-          <slot name="pre-main-content"></slot>
-        </div>
+          <div class="layout__element pre-main-content">
+            <slot name="pre-main-content"></slot>
+          </div>
 
-        <div class="layout__element main-content">
-          <slot name="main-content"></slot>
-        </div>
+          <div class="layout__element main-content">
+            <slot name="main-content"></slot>
+          </div>
 
-      </main>
+        </main>
+
+      </div>
     </div>
 
   </div>
@@ -69,6 +74,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/helpers/variables";
+@import "../styles/helpers/responsive";
+
 .main-layout {
   display: flex;
   flex-direction: column;
@@ -77,16 +85,29 @@ export default {
 
 .main-container {
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  width: $lg-max;
+
+  @media (max-width: $sm-max) {
+    flex-direction: column;
+  }
 }
 
-.top-panel {}
+.top-panel {
+  background: $light-grey;
+}
 
 .left-panel-container {
   display: flex;
   flex-direction: column;
   transition: all .3s;
+
+  @media (min-width: $sm-max) {
+    width: 240px;
+  }
+
+  @media (min-width: $lg-max) {
+    width: 360px;
+  }
 }
 
 .left-panel-header {
@@ -100,42 +121,27 @@ export default {
   width: 100%;
   height: 100%;
   cursor: pointer;
+
+  @media (min-width: $sm-max) {
+    display: none;
+  }
 }
 
 .left-panel {
   flex: 1;
   display: none;
-}
 
-.middle-panel {
-  flex: 1;
-}
-
-.pre-main-content {
-  height: 72px;
-}
-
-@media (min-width: 640px) {
-  .main-container {
-    flex-direction: row;
-  }
-
-  .left-panel-container {
-    width: 240px;
-  }
-
-  .left-panel-toggler {
-    display: none;
-  }
-
-  .left-panel {
+  @media (min-width: $sm-max) {
     display: block;
   }
 }
 
-@media (min-width: 960px) {
-  .left-panel-container {
-    width: 360px;
-  }
+.middle-panel {
+  flex: 1;
+  width: 100%;
+}
+
+.pre-main-content {
+  height: 72px;
 }
 </style>
