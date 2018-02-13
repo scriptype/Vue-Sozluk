@@ -77,9 +77,7 @@ export default {
   },
 
   methods: {
-    goToProfile() {
-      console.log('go to profile')
-    },
+    goToProfile() { },
     toggleToolsVisibility() {
       const isVisible = this.toolsVisible
       if (isVisible) {
