@@ -9,7 +9,7 @@
     </div>
 
     <aside slot="left-panel">
-      left
+      <left-panel />
     </aside>
 
     <section slot="pre-main-content">
@@ -24,15 +24,20 @@
 
 
 <script>
+import { mapActions } from 'vuex'
 import MainLayout from '@/layouts/main'
 import TopPanel from './top-panel'
+import LeftPanel from './left-panel'
 
 export default {
   name: 'Home',
+
   components: {
     MainLayout,
-    TopPanel
+    TopPanel,
+    LeftPanel
   },
+
   data() {
     return {
       user: {
@@ -40,6 +45,16 @@ export default {
         nick: 'Enes'
       }
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'getRecentTopics'
+    ])
+  },
+
+  created() {
+    this.getRecentTopics()
   }
 }
 </script>
