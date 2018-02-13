@@ -5,10 +5,26 @@ const db = require('../lib/db')
 
 const topicsApi = express.Router()
 
-topicsApi.get('/', (req, res) => {
-  db.readTable('topics')
-    .then(table => res.json(table))
-    .catch(err => res.sendStatus(404, err))
+topicsApi.get('/', ({ query }, res) => {
+  if (query) {
+    const queryObject = {
+      table: 'topics',
+      queryObject: {
+        limit: Number(query.limit) || 10,
+        page: Number(query.page) || 0,
+        sortBy: query.sortBy || 'createdAt',
+        order: query.order || 1,
+        attributes: query.attributes || {}
+      }
+    }
+    db.query(queryObject)
+      .then(result => res.json(result))
+      .catch(err => res.sendStatus(404, err))
+  } else {
+    db.readTable('topics')
+      .then(table => res.json(table))
+      .catch(err => res.sendStatus(404, err))
+  }
 })
 
 topicsApi.put('/', (req, res) => {

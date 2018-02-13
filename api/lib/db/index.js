@@ -1,18 +1,7 @@
 const fs = require('fs')
-const path = require('path')
-
-const DB_PATH = path.resolve(__dirname, '..', 'db.json')
-
-function readDB() {
-  return new Promise((resolve, reject) => {
-    fs.readFile(DB_PATH, 'utf-8', (err, data) => {
-      if (err) {
-        return reject(err)
-      }
-      return resolve(JSON.parse(data))
-    })
-  })
-}
+const readDB = require('./readDB')
+const query = require('./query')
+const DB_PATH = require('../../config').DB_PATH
 
 function flush() {
   return new Promise((resolve, reject) => {
@@ -37,7 +26,7 @@ function updateTable(tableName, cb) {
       if (err) {
         return Promise.reject(err)
       }
-      Promise.resolve()
+      return Promise.resolve()
     })
   })
 }
@@ -85,40 +74,6 @@ function deleteNode(tableName, id) {
     const index = tableCopy.indexOf(node)
     tableCopy.splice(index, 1)
     return tableCopy
-  })
-}
-
-function query({ id, table, data }) {
-  return readDB().then((tables) => {
-    if (table) {
-      if (id) {
-        return tables[table].filter(node => node.id === id)
-      }
-      return tables[table].filter((node) => {
-        const match = Object.keys(data).every(key => (
-          node[key] === data[key]
-        ))
-        return match
-      })
-    }
-    const result = []
-    Object.keys(tables).forEach((tableName) => {
-      tables[tableName].forEach((node) => {
-        if (id) {
-          if (node.id === id) {
-            result.push(node)
-          }
-        } else {
-          const match = Object.keys(data).every(key => (
-            node[key] === data[key]
-          ))
-          if (match) {
-            result.push(node)
-          }
-        }
-      })
-    })
-    return result
   })
 }
 
