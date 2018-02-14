@@ -9,6 +9,12 @@ export default new Vuex.Store({
     entries: [],
     users: [],
 
+    user: {
+      loggedIn: true,
+      name: 'Enes',
+      id: 'S1JqHGo8M'
+    },
+
     topics: [],
     recentTopics: [],
     activeTopic: {},
@@ -85,11 +91,15 @@ export default new Vuex.Store({
         .catch(error => commit('logoutFail', error))
     },
 
-    createEntry({ commit }, entry) {
+    createEntry({ commit, state }, entryContent) {
       commit('createEntryStarted')
       api
-        .createEntry(entry)
-        .then(() => commit('createEntrySuccess', entry))
+        .createEntry({
+          userID: state.user.id,
+          topicID: state.activeTopic.id,
+          content: entryContent
+        })
+        .then(entry => commit('createEntrySuccess', entry))
         .catch(() => commit('createEntryFail'))
     },
 

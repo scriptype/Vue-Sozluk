@@ -7,6 +7,10 @@ module.exports = class EntryModel extends Model {
         type: Number,
         required: true
       },
+      lastUpdatedAt: {
+        type: Number,
+        required: true
+      },
       id: {
         type: String,
         required: true
@@ -16,6 +20,10 @@ module.exports = class EntryModel extends Model {
         required: true
       },
       topicID: {
+        type: String,
+        required: true
+      },
+      content: {
         type: String,
         required: true
       }

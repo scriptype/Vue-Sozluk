@@ -19,7 +19,8 @@
 
     <main-content
       slot="main-content"
-      :topic="activeTopic" />
+      :topic="activeTopic"
+      @createEntry="createEntry" />
   </main-layout>
 </template>
 
@@ -43,17 +44,9 @@ export default {
     MainContent
   },
 
-  data() {
-    return {
-      user: {
-        loggedIn: false,
-        nick: 'Enes'
-      }
-    }
-  },
-
   computed: {
     ...mapState([
+      'user',
       'recentTopics',
       'activeTopic'
     ])
@@ -63,8 +56,10 @@ export default {
     ...mapActions([
       'getRecentTopics',
       'getRandomTopic',
-      'getTopic'
+      'getTopic',
+      'createEntry'
     ]),
+
     onChangeRoute(vm, to) {
       vm.getRecentTopics()
       const { topicID } = to.params
