@@ -1,5 +1,6 @@
 const express = require('express')
 const shortid = require('shortid')
+const slug = require('slug')
 const TopicModel = require('../models/Topic')
 const db = require('../lib/db')
 
@@ -28,21 +29,37 @@ topicsApi.get('/', ({ query }, res) => {
 })
 
 topicsApi.put('/', (req, res) => {
-  const modelData = {
-    createdAt: Date.now(),
-    id: shortid.generate(),
-    title: req.body.title,
-    userID: req.body.userID
-  }
+  db
+    .query({
+      table: 'topics',
+      queryObject: {
+        attributes: {
+          title: slug(req.body.title)
+        }
+      }
+    })
+    .then(results => {
+      if (results.length) {
+        res.status(400).send('Same topic already exists!')
+      } else {
+        const modelData = {
+          createdAt: Date.now(),
+          lastUpdatedAt: Date.now(),
+          id: shortid.generate(),
+          title: req.body.title,
+          userID: req.body.userID
+        }
 
-  try {
-    const model = new TopicModel(modelData)
-    db.createNode('topics', model.toJSON())
-      .then(() => res.sendStatus(201))
-      .catch(err => res.sendStatus(500, err))
-  } catch (err) {
-    res.status(400).send(err.toString())
-  }
+        try {
+          const model = new TopicModel(modelData)
+          db.createNode('topics', model.toJSON())
+            .then(() => res.sendStatus(201))
+            .catch(err => res.sendStatus(500, err))
+        } catch (err) {
+          res.status(400).send(err.toString())
+        }
+      }
+    })
 })
 
 topicsApi.delete('/', (req, res) => {
