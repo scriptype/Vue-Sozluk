@@ -11,7 +11,7 @@ function filterTableByAttributes(table, attributes) {
 function sortNodes(nodes, sortBy, order) {
   return nodes.sort((matchA, matchB) => (
     order === 0 ? (
-      Math.round(Math.cos(Math.random() * Math.PI))
+      Math.round(Math.random()) ? 1 : -1
     ) : (
       matchA[sortBy] > matchB[sortBy] ?
         1 * order :
