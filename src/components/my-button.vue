@@ -1,6 +1,7 @@
 <template>
   <button
     :class="buttonClassObject"
+    @click="onClick"
     type="button"
   >
     <slot></slot>
@@ -39,6 +40,12 @@ export default {
         'button--secondary': this.$props.level === 'secondary',
         'button--tertiary': this.$props.level === 'tertiary'
       }
+    }
+  },
+
+  methods: {
+    onClick() {
+      this.$emit('click')
     }
   }
 }
