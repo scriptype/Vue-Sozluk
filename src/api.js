@@ -65,6 +65,17 @@ export default {
     return this.get(`topics/${topicID}`)
   },
 
+  getRandomTopic() {
+    const queryObject = {
+      limit: 1,
+      order: 0
+    }
+
+    const query = querystring.stringify(queryObject)
+
+    return this.get(`topics?${query}`).then(results => results[0])
+  },
+
   getRecentTopics(options) {
     const defaultQuery = {
       limit: 10,
