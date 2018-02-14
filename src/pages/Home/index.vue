@@ -17,9 +17,9 @@
       pre-main
     </section>
 
-    <main slot="main-content">
-      main
-    </main>
+    <main-content
+      slot="main-content"
+      :topic="activeTopic" />
   </main-layout>
 </template>
 
@@ -30,6 +30,7 @@ import MainLayout from '@/layouts/main'
 import TopPanel from './top-panel'
 import LeftPanel from './left-panel'
 import LeftPanelHeader from './left-panel-header'
+import MainContent from './main-content'
 
 export default {
   name: 'Home',
@@ -38,7 +39,8 @@ export default {
     MainLayout,
     TopPanel,
     LeftPanel,
-    LeftPanelHeader
+    LeftPanelHeader,
+    MainContent
   },
 
   data() {
@@ -52,18 +54,37 @@ export default {
 
   computed: {
     ...mapState([
-      'recentTopics'
+      'recentTopics',
+      'activeTopic'
     ])
   },
 
   methods: {
     ...mapActions([
-      'getRecentTopics'
+      'getRecentTopics',
+      'getRandomTopic',
+      'getTopic'
     ])
   },
 
   created() {
     this.getRecentTopics()
+    const { topicID } = this.$route.params
+    if (topicID) {
+      this.getTopic(topicID)
+    } else {
+      this.getRandomTopic()
+    }
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    const { topicID } = to.params
+    if (topicID) {
+      this.getTopic(topicID)
+    } else {
+      this.getRandomTopic()
+    }
+    next()
   }
 }
 </script>

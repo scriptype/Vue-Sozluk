@@ -8,7 +8,9 @@
 
       <ul v-else class="topics-list">
         <li v-for="topic in topics" :key="topic.id">
-          <a href="hel" @click.prevent="onClickTopic(topic)">{{ topic.title }}</a>
+          <router-link :to="getTopicUrl(topic)">
+            {{ topic.title }}
+          </router-link>
         </li>
       </ul>
 
@@ -18,6 +20,7 @@
 
 
 <script>
+import slug from 'slug'
 import LoadingIndicator from '@/components/loading-indicator'
 
 export default {
@@ -35,8 +38,8 @@ export default {
   },
 
   methods: {
-    onClickTopic(topic) {
-      this.$emit('clickTopic', topic)
+    getTopicUrl(topic) {
+      return `${slug(topic.title)}--${topic.id}`
     }
   }
 }

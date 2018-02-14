@@ -10,6 +10,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/:slug--:topicID',
+      name: 'Topic',
+      component: Home
     }
   ]
 })
