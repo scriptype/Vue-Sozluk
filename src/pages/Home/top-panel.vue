@@ -1,6 +1,6 @@
 <template>
   <div :class="['top-panel-container', expandingCollapsingPanelClassObject]">
-    <sozluk-logo class="sozluk-logo" />
+    <sozluk-logo linked class="sozluk-logo" />
 
     <hr
       class="separator display-mobile hide-desktop"
