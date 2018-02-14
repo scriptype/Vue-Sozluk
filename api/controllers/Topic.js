@@ -13,7 +13,7 @@ topicsApi.get('/', ({ query }, res) => {
         limit: Number(query.limit) || 10,
         page: Number(query.page) || 0,
         sortBy: query.sortBy || 'createdAt',
-        order: query.order || 1,
+        order: Number(query.order),
         attributes: query.attributes || {}
       }
     }
