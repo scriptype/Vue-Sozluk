@@ -8,8 +8,15 @@ export default new Vuex.Store({
   state: {
     entries: [],
     users: [],
+
     topics: [],
     recentTopics: [],
+    activeTopic: {},
+    getRandomTopicStatus: null,
+    getRandomTopicError: null,
+    getTopicStatus: null,
+    getTopicError: null,
+
     signUpStatus: null,
     signUpError: null,
     loginStatus: null,
@@ -108,6 +115,22 @@ export default new Vuex.Store({
         .getRecentTopics()
         .then(topics => commit('getRecentTopicsSuccess', topics))
         .catch(error => commit('getRecentTopicsFail', error))
+    },
+
+    getRandomTopic({ commit }) {
+      commit('getRandomTopicStarted')
+      api
+        .getRandomTopic()
+        .then(topic => commit('getRandomTopicSuccess', topic))
+        .catch(error => commit('getRandomTopicFail', error))
+    },
+
+    getTopic({ commit }, topicID) {
+      commit('getTopicStarted')
+      api
+        .getTopic(topicID)
+        .then(topic => commit('getTopicSuccess', topic))
+        .catch(error => commit('getTopicFail', error))
     }
 
   },
@@ -184,6 +207,34 @@ export default new Vuex.Store({
     getRecentTopicsFail(state, error) {
       state.getRecentTopicsStatus = 'fail'
       state.getRecentTopicsError = error
+    },
+
+    getRandomTopicStarted(state) {
+      state.getRandomTopicStatus = 'started'
+    },
+
+    getRandomTopicSuccess(state, topic) {
+      state.getRandomTopicStatus = 'success'
+      state.activeTopic = topic
+    },
+
+    getRandomTopicFail(state, error) {
+      state.getRandomTopicStatus = 'fail'
+      state.getRandomTopicError = error
+    },
+
+    getTopicStarted(state) {
+      state.getTopicStatus = 'started'
+    },
+
+    getTopicSuccess(state, topic) {
+      state.getTopicStatus = 'success'
+      state.activeTopic = topic
+    },
+
+    getTopicFail(state, error) {
+      state.getTopicStatus = 'fail'
+      state.getTopicError = error
     },
 
     // User
