@@ -16,3 +16,4 @@ api/db.json
 *.ntvs*
 *.njsproj
 *.sln
+api/db.json.bak
