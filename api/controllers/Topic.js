@@ -1,3 +1,4 @@
+const querystring = require('querystring')
 const express = require('express')
 const shortid = require('shortid')
 const slug = require('slug')
@@ -68,10 +69,35 @@ topicsApi.delete('/', (req, res) => {
     .catch(err => res.status(500).send(err.toString()))
 })
 
-topicsApi.get('/:id', (req, res) => {
-  db.findNode('topics', req.params.id)
-    .then(node => res.json(node))
-    .catch(err => res.status(404).send(err.toString()))
+topicsApi.get('/:id', ({ query, params }, res) => {
+  if (query) {
+    let embed = {}
+    if (query.embed) {
+      embed = query.embed.map(e => querystring.parse(e))
+      embed = embed.map(e => Object.assign({}, e, {
+        attributes: querystring.parse(e.attributes || '{}')
+      }))
+    }
+    const queryObject = {
+      id: params.id,
+      table: 'topics',
+      queryObject: {
+        limit: Number(query.limit) || 10,
+        page: Number(query.page) || 0,
+        sortBy: query.sortBy || 'createdAt',
+        order: Number(query.order),
+        attributes: query.attributes || {},
+        embed
+      }
+    }
+    db.query(queryObject)
+      .then(result => res.json(result))
+      .catch(err => res.status(404).send(err))
+  } else {
+    db.findNode('topics', req.params.id)
+      .then(node => res.json(node))
+      .catch(err => res.status(404).send(err.toString()))
+  }
 })
 
 topicsApi.delete('/:id', (req, res) => {

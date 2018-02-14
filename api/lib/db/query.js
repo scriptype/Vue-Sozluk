@@ -58,12 +58,45 @@ function queryNodes(nodes, queryObject) {
   return pagedResults
 }
 
-module.exports = function query({ id, table, queryObject }) {
+function embedResources(baseResults, options) {
+  if (!options || !options.length) {
+    return Promise.resolve(baseResults)
+  }
+
+  return Promise.all(baseResults.reduce((prev, result) => (
+    prev.concat(Promise.all(prev).then(() => (
+      query({
+        table: options[0].resource,
+        queryObject: {
+          limit: Number(options[0].limit) || 10,
+          page: Number(options[0].page) || 0,
+          sortBy: options[0].sortBy || 'createdAt',
+          order: Number(options[0].order),
+          attributes: {
+            [options[0].attributes.$field]: result[options[0].attributes.$parentField]
+          },
+          embed: options.slice(1)
+        }
+      }).then(embed => ({
+        ...result,
+        [options[0].resource]: embed
+      })).catch(err => {
+        console.log('err', err)
+      })
+    )))
+  ), []))
+}
+
+function query({ id, table, queryObject }) {
   return readDB().then((tables) => {
     const nodes = table ? tables[table] : flatTables(tables)
+    let result
     if (id) {
-      return nodes.filter(node => node.id === id)
+      result = nodes.filter(node => node.id === id)
     }
-    return queryNodes(nodes, queryObject)
+    result = queryNodes(nodes, queryObject)
+    return embedResources(result, queryObject.embed)
   })
 }
+
+module.exports = query

@@ -61,8 +61,32 @@ export default {
     return this.get(`users/${userID}`)
   },
 
-  getTopic(topicID) {
-    return this.get(`topics/${topicID}`)
+  getTopic(topicID, page) {
+    const queryObject = {
+      embed: [
+        querystring.stringify({
+          resource: 'entries',
+          limit: 10,
+          page,
+          attributes: querystring.stringify({
+            $parentField: 'id',
+            $field: 'topicID'
+          })
+        }),
+        querystring.stringify({
+          resource: 'users',
+          limit: 1,
+          attributes: querystring.stringify({
+            $parentField: 'userID',
+            $field: 'id'
+          })
+        })
+      ]
+    }
+
+    const query = querystring.stringify(queryObject)
+    return this.get(`topics/${topicID}?${query}`)
+      .then(results => results[0])
   },
 
   getRandomTopic() {
