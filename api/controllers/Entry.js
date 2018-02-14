@@ -34,7 +34,7 @@ entriesApi.put('/', (req, res) => {
     id: shortid.generate(),
     content: req.body.content,
     userID: req.body.userID,
-    topicID: req.body.userID
+    topicID: req.body.topicID
   }
 
   try {
