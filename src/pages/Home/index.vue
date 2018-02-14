@@ -67,24 +67,17 @@ export default {
     ])
   },
 
-  created() {
-    this.getRecentTopics()
-    const { topicID } = this.$route.params
-    if (topicID) {
-      this.getTopic(topicID)
-    } else {
-      this.getRandomTopic()
-    }
-  },
-
-  beforeRouteUpdate(to, from, next) {
-    const { topicID } = to.params
-    if (topicID) {
-      this.getTopic(topicID)
-    } else {
-      this.getRandomTopic()
-    }
-    next()
+  beforeRouteEnter(to, from, next) {
+    console.log('hey')
+    next(vm => {
+      vm.getRecentTopics()
+      const { topicID } = to.params
+      if (topicID) {
+        vm.getTopic(topicID)
+      } else {
+        vm.getRandomTopic()
+      }
+    })
   }
 }
 </script>
