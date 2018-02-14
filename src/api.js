@@ -80,8 +80,8 @@ export default {
     const defaultQuery = {
       limit: 50,
       page: 0,
-      sortBy: 'createdAt',
-      order: 1
+      sortBy: 'lastUpdatedAt',
+      order: -1
     }
 
     const query = querystring.stringify(
