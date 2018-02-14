@@ -38,7 +38,7 @@ topicsApi.put('/', (req, res) => {
         }
       }
     })
-    .then(results => {
+    .then((results) => {
       if (results.length) {
         res.status(400).send('Same topic already exists!')
       } else {
