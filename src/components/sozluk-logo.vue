@@ -5,6 +5,7 @@
   <img v-else :src="Logo" class="logo" />
 </template>
 
+
 <script>
 import Logo from '@/assets/logo.png'
 
@@ -25,6 +26,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .logo {
