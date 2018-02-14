@@ -15,8 +15,8 @@
             <div class="entry__content">
               {{ entry.content }}
             </div>
-            <span class="entry__author">{{ entry.author }}</span>
-            <span class="entry__date">{{ entry.date }}</span>
+            <span class="entry__author">{{ getUser(entry).name }}</span>
+            <span class="entry__date">{{ new Date(entry.createdAt).toLocaleDateString('tr') }}</span>
           </li>
         </ol>
 
@@ -66,6 +66,9 @@ export default {
   methods: {
     onCreateEntry() {
       this.$emit('createEntry', this.newEntryContent)
+    },
+    getUser(entry) {
+      return entry.users[0]
     }
   }
 }
