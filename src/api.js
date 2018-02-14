@@ -3,7 +3,7 @@ const querystring = require('querystring')
 const API_URL = 'http://localhost:8081'
 
 export default {
-  create(endpoint, payload) {
+  put(endpoint, payload) {
     return fetch(`${API_URL}/${endpoint}`, {
       method: 'PUT',
       body: JSON.stringify(payload),
@@ -42,15 +42,15 @@ export default {
   },
 
   createEntry(entry) {
-    return this.create('entry', entry)
+    return this.put('entries', entry)
   },
 
   createUser(user) {
-    return this.create('user', user)
+    return this.put('user', user)
   },
 
   createTopic(topic) {
-    return this.create('topic', topic)
+    return this.put('topic', topic)
   },
 
   getEntry(entryID) {
