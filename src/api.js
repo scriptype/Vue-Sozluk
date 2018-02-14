@@ -78,7 +78,7 @@ export default {
 
   getRecentTopics(options) {
     const defaultQuery = {
-      limit: 10,
+      limit: 50,
       page: 0,
       sortBy: 'createdAt',
       order: 1
