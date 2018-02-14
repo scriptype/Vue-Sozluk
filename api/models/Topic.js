@@ -7,6 +7,10 @@ module.exports = class TopicModel extends Model {
         type: Number,
         required: true
       },
+      lastUpdatedAt: {
+        type: Number,
+        required: true
+      },
       title: {
         type: String,
         required: true
