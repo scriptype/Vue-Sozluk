@@ -65,7 +65,7 @@ export default {
       'getRandomTopic',
       'getTopic'
     ]),
-    onChangeRoute(vm, to, from) {
+    onChangeRoute(vm, to) {
       vm.getRecentTopics()
       const { topicID } = to.params
       if (topicID) {
@@ -77,7 +77,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => { vm.onChangeRoute(vm, to, from) })
+    next((vm) => { vm.onChangeRoute(vm, to, from) })
   },
 
   beforeRouteUpdate(to, from, next) {
