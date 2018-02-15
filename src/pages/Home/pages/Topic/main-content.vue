@@ -57,8 +57,8 @@ export default {
 
 
 <style scoped lang="scss">
-@import "../../styles/helpers/variables";
-@import "../../styles/helpers/responsive";
+@import "../../../../styles/helpers/variables";
+@import "../../../../styles/helpers/responsive";
 
 .topic {
 

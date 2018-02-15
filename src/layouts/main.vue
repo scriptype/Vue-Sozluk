@@ -29,10 +29,6 @@
 
         <main class="main-layout__middle-panel">
 
-          <div class="layout__element main-layout__pre-main-content">
-            <slot name="pre-main-content"></slot>
-          </div>
-
           <div class="layout__element main-layout__main-content">
             <slot name="main-content"></slot>
           </div>
@@ -141,10 +137,6 @@ export default {
   &__middle-panel {
     flex: 1;
     width: 100%;
-  }
-
-  &__pre-main-content {
-    height: 72px;
   }
 }
 </style>

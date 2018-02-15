@@ -13,14 +13,7 @@
       slot="left-panel"
       :topics="recentTopics" />
 
-    <section slot="pre-main-content">
-      pre-main
-    </section>
-
-    <main-content
-      slot="main-content"
-      :topic="activeTopic"
-      @createEntry="createEntry" />
+    <router-view slot="main-content"></router-view>
   </main-layout>
 </template>
 
@@ -31,7 +24,6 @@ import MainLayout from '@/layouts/main'
 import TopPanel from './top-panel'
 import LeftPanel from './left-panel'
 import LeftPanelHeader from './left-panel-header'
-import MainContent from './main-content'
 
 export default {
   name: 'Home',
@@ -40,15 +32,13 @@ export default {
     MainLayout,
     TopPanel,
     LeftPanel,
-    LeftPanelHeader,
-    MainContent
+    LeftPanelHeader
   },
 
   computed: {
     ...mapState([
       'user',
-      'recentTopics',
-      'activeTopic'
+      'recentTopics'
     ])
   },
 
@@ -56,8 +46,7 @@ export default {
     ...mapActions([
       'getRecentTopics',
       'getRandomTopic',
-      'getTopic',
-      'createEntry'
+      'getTopic'
     ]),
 
     onChangeRoute(vm, to) {
