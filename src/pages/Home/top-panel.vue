@@ -12,7 +12,6 @@
     <user-profile-mini
       v-if="loggedIn"
       :user="user"
-      @onClickNick="goToProfile"
       :class="['user-profile-mini', toolsVisibleClassObject]"
     />
 
@@ -77,7 +76,6 @@ export default {
   },
 
   methods: {
-    goToProfile() { },
     toggleToolsVisibility() {
       const isVisible = this.toolsVisible
       if (isVisible) {

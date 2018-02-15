@@ -1,27 +1,21 @@
 <template>
-  <a href="#" @click.prevent="onClickNick">{{ nick }}</a>
+  <user-link :user="user" />
 </template>
 
 <script>
+import UserLink from '@/components/user-link'
+
 export default {
   name: 'UserProfileMini',
+
+  components: {
+    UserLink
+  },
 
   props: {
     user: {
       type: Object,
       required: true
-    }
-  },
-
-  computed: {
-    nick() {
-      return this.$props.user.nick
-    }
-  },
-
-  methods: {
-    onClickNick() {
-      this.$emit('onClickNick')
     }
   }
 }
