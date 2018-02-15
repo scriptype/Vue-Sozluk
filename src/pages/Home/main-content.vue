@@ -10,15 +10,12 @@
 
         <h1>{{ topic.title }}</h1>
 
-        <ol class="entries">
-          <li :key="entry.id" class="entry" v-for="entry in topic.entries">
-            <div class="entry__content">
-              {{ entry.content }}
-            </div>
-            <span class="entry__author">{{ getUser(entry).name }}</span>
-            <span class="entry__date">{{ new Date(entry.createdAt).toLocaleDateString('tr') }}</span>
-          </li>
-        </ol>
+        <section class="entries">
+          <entry
+            v-for="entry in topic.entries"
+            :key="entry.id"
+            :entry="entry"  />
+        </section>
 
         <form class="create-entry-form">
           <textarea v-model="newEntryContent"></textarea>
@@ -41,13 +38,15 @@
 <script>
 import LoadingIndicator from '@/components/loading-indicator'
 import MyButton from '@/components/my-button'
+import Entry from '@/components/entry'
 
 export default {
   name: 'MainContent',
 
   components: {
     LoadingIndicator,
-    MyButton
+    MyButton,
+    Entry
   },
 
   props: {
@@ -66,9 +65,6 @@ export default {
   methods: {
     onCreateEntry() {
       this.$emit('createEntry', this.newEntryContent)
-    },
-    getUser(entry) {
-      return entry.users[0]
     }
   }
 }
