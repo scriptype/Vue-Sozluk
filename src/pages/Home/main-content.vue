@@ -17,16 +17,7 @@
             :entry="entry"  />
         </section>
 
-        <form class="create-entry-form">
-          <textarea v-model="newEntryContent"></textarea>
-          <my-button
-            @click="onCreateEntry"
-            type="primary"
-            size="big"
-          >
-            Oluştur
-          </my-button>
-        </form>
+        <create-entry-form @createEntry="onCreateEntry" />
 
       </div>
 
@@ -37,16 +28,16 @@
 
 <script>
 import LoadingIndicator from '@/components/loading-indicator'
-import MyButton from '@/components/my-button'
 import Entry from '@/components/entry'
+import CreateEntryForm from '@/components/create-entry-form'
 
 export default {
   name: 'MainContent',
 
   components: {
     LoadingIndicator,
-    MyButton,
-    Entry
+    Entry,
+    CreateEntryForm
   },
 
   props: {
@@ -56,15 +47,9 @@ export default {
     }
   },
 
-  data() {
-    return {
-      newEntryContent: ''
-    }
-  },
-
   methods: {
-    onCreateEntry() {
-      this.$emit('createEntry', this.newEntryContent)
+    onCreateEntry(newEntryContent) {
+      this.$emit('createEntry', newEntryContent)
     }
   }
 }
