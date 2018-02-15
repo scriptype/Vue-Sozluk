@@ -5,11 +5,13 @@
       {{ entry.content }}
     </div>
 
-    <user-link :user="getUser()" class="entry__author" />
+    <footer class="entry__meta">
+      <span class="entry__date">
+        {{ createdDate }}
+      </span>
 
-    <span class="entry__date">
-      {{ new Date(entry.createdAt).toLocaleDateString('tr') }}
-    </span>
+      <user-link :user="user" class="entry__author" />
+    </footer>
 
   </article>
 </template>
@@ -31,12 +33,48 @@ export default {
     }
   },
 
-  methods: {
-    getUser() {
+  computed: {
+    user() {
       return this.entry.users[0]
+    },
+
+    createdDate() {
+      const date = new Date(this.entry.createdAt)
+      return date.toLocaleDateString('tr-TR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+      })
     }
   }
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "../styles/helpers/variables";
+
+.entry {
+  margin-bottom: 5em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid $light-grey;
+
+  &__content {}
+
+  &__meta {
+    text-align: right;
+  }
+
+  &__author {
+    font-size: .9em;
+    text-transform: lowercase;
+  }
+
+  &__date {
+    font-size: .8em;
+    margin-right: .5em;
+  }
+}
+</style>
