@@ -46,7 +46,8 @@ export default {
     ...mapActions([
       'getRecentTopics',
       'getRandomTopic',
-      'getTopic'
+      'getTopic',
+      'getUser'
     ]),
 
     onChangeRoute(vm, to) {
@@ -61,7 +62,10 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    next((vm) => { vm.onChangeRoute(vm, to, from) })
+    next((vm) => {
+      vm.getUser()
+      vm.onChangeRoute(vm, to, from)
+    })
   },
 
   beforeRouteUpdate(to, from, next) {

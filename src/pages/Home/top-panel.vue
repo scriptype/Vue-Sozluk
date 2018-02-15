@@ -23,6 +23,7 @@
 
 
 <script>
+import { mapState } from 'vuex'
 import SozlukLogo from '@/components/sozluk-logo'
 import SearchForm from '@/components/search-form'
 import UserProfileMini from '@/components/user-profile-mini'
@@ -55,9 +56,9 @@ export default {
   },
 
   computed: {
-    loggedIn() {
-      return this.$props.user.loggedIn
-    },
+    ...mapState([
+      'loggedIn'
+    ]),
     toolsVisibleClassObject() {
       return {
         'display-desktop': true,

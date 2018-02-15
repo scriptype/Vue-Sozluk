@@ -9,11 +9,12 @@ export default new Vuex.Store({
     entries: [],
     users: [],
 
-    user: {
-      loggedIn: true,
-      name: 'Enes',
-      id: 'S1JqHGo8M'
-    },
+    loggedIn: true,
+
+    user: {},
+    userContributedTopics: [],
+    getUserContributedTopicsStatus: null,
+    getUserStatus: null,
 
     topics: [],
     recentTopics: [],
@@ -89,6 +90,22 @@ export default new Vuex.Store({
           localStorage.removeItem('usertoken')
         })
         .catch(error => commit('logoutFail', error))
+    },
+
+    getUser({ commit, state }) {
+      commit('getUserStarted')
+      api
+        .getUser('S1JqHGo8M')
+        .then(user => commit('getUserSuccess', user))
+        .catch(() => commit('getUserSuccess'))
+    },
+
+    getUserContributedTopics({ commit, state }) {
+      commit('getUserContributedTopicsStarted')
+      api
+        .getUserContributedTopics(state.user.id)
+        .then(topics => commit('getUserContributedTopicsSuccess', topics))
+        .catch(() => commit('getUserContributedTopicsFail'))
     },
 
     createEntry({ commit, state }, entryContent) {
@@ -192,6 +209,19 @@ export default new Vuex.Store({
       state.logoutError = error
     },
 
+    getUserStarted(state) {
+      state.getUserStatus = 'started'
+    },
+
+    getUserSuccess(state, user) {
+      state.getUserStatus = 'success'
+      state.user = user
+    },
+
+    getUserFail(state) {
+      state.getUserStatus = 'fail'
+    },
+
     // Entry
     createEntryStarted(state) {
       state.createEntryStatus = 'started'
@@ -245,6 +275,19 @@ export default new Vuex.Store({
     getTopicFail(state, error) {
       state.getTopicStatus = 'fail'
       state.getTopicError = error
+    },
+
+    getUserContributedTopicsStarted(state) {
+      state.getUserContributedTopicsStatus = 'started'
+    },
+
+    getUserContributedTopicsSuccess(state, topics) {
+      state.getUserContributedTopicsStatus = 'success'
+      state.userContributedTopics = topics
+    },
+
+    getUserContributedTopicsFail(state) {
+      state.getUserContributedTopicsStatus = 'fail'
     },
 
     // User
