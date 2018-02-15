@@ -6,9 +6,9 @@
         <loading-indicator />
       </div>
 
-      <ul v-else class="topics-list">
+      <ul v-else class="left-panel__topics-list">
         <li v-for="topic in topics" :key="topic.id">
-          <router-link :to="getTopicUrl(topic)">
+          <router-link :to="getTopicUrl(topic)" class="left-panel__topics-list-item">
             {{ topic.title }}
           </router-link>
         </li>
@@ -49,6 +49,22 @@ export default {
 <style scoped lang="scss">
 @import "../../styles/helpers/variables";
 @import "../../styles/helpers/responsive";
+
+.left-panel {
+
+  &__topics-list {
+
+    &-item {
+      display: block;
+      padding: .5em 0;
+      color: darken($primary-bg, 5%);
+
+      &:hover {
+        background: $lighter-grey;
+      }
+    }
+  }
+}
 
 .loading-indicator-container {
   text-align: center;
