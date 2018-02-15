@@ -46,8 +46,10 @@ function queryNodes(nodes, queryObject) {
     order,
     attributes
   } = queryObject
+
   const attributesMatch = filterTableByAttributes(nodes, attributes)
   const sortedResults = sortNodes(attributesMatch, sortBy, order)
+
   let pagedResults
   if (limit > -1) {
     const splittedResults = splitArrayByLimit(sortedResults, limit)
@@ -55,6 +57,7 @@ function queryNodes(nodes, queryObject) {
   } else {
     pagedResults = sortedResults
   }
+
   return pagedResults
 }
 
@@ -93,8 +96,9 @@ function query({ id, table, queryObject }) {
     let result
     if (id) {
       result = nodes.filter(node => node.id === id)
+    } else {
+      result = queryNodes(nodes, queryObject)
     }
-    result = queryNodes(nodes, queryObject)
     return embedResources(result, queryObject.embed)
   })
 }

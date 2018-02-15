@@ -94,7 +94,7 @@ topicsApi.get('/:id', ({ query, params }, res) => {
       .then(result => res.json(result))
       .catch(err => res.status(404).send(err))
   } else {
-    db.findNode('topics', req.params.id)
+    db.findNode('topics', params.id)
       .then(node => res.json(node))
       .catch(err => res.status(404).send(err.toString()))
   }
