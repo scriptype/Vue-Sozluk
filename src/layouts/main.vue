@@ -84,10 +84,13 @@ export default {
 
   &__main-container {
     display: flex;
-    width: $lg-max;
 
     @media (max-width: $sm-max) {
       flex-direction: column;
+    }
+
+    @media (min-width: $lg-max) {
+      width: $lg-max;
     }
   }
 
