@@ -8,9 +8,9 @@
 
       <div v-else class="topic">
 
-        <h1>{{ topic.title }}</h1>
+        <h1 class="topic__title">{{ topic.title }}</h1>
 
-        <section class="entries">
+        <section class="topic__entries">
           <entry
             v-for="entry in topic.entries"
             :key="entry.id"
@@ -59,4 +59,18 @@ export default {
 <style scoped lang="scss">
 @import "../../styles/helpers/variables";
 @import "../../styles/helpers/responsive";
+
+.topic {
+
+  &__title {
+    font: bold normal 2em/1.5 helvetica, sans-serif;
+  }
+
+  &__entries {}
+
+  &__title,
+  &__entries {
+    margin-bottom: 3rem;
+  }
+}
 </style>
