@@ -2,7 +2,8 @@
  * Theme colors
  */
 $grey: lighten(grey, 25%);
-$light-grey: lighten($grey, 18%);
+$light-grey: lighten($grey, 10%);
+$lighter-grey: lighten($grey, 18%);
 $dark-grey: darken($grey, 18%);
 $primary-bg: #39AF78;
 $primary-fg: #fff;

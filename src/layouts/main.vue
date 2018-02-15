@@ -92,7 +92,7 @@ export default {
   }
 
   &__top-panel {
-    background: $light-grey;
+    background: $lighter-grey;
   }
 
   &__left-panel-container {
