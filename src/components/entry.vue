@@ -18,6 +18,7 @@
 
 <script>
 import UserLink from '@/components/user-link'
+import Utils from '@/utils'
 
 export default {
   name: 'Entry',
@@ -39,15 +40,7 @@ export default {
     },
 
     createdDate() {
-      const date = new Date(this.entry.createdAt)
-      return date.toLocaleDateString('tr-TR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-      })
+      return Utils.readableDate(new Date(this.entry.createdAt))
     }
   }
 }
