@@ -113,5 +113,23 @@ export default {
     )
 
     return this.get(`topics?${query}`)
+  },
+
+  getUserContributedTopics(userID, options) {
+    const defaultQuery = {
+      limit: 50,
+      page: 0,
+      sortBy: 'lastUpdatedAt',
+      order: -1,
+      attributes: {
+        userID
+      }
+    }
+
+    const query = querystring.stringify(
+      Object.assign({}, defaultQuery, options)
+    )
+
+    return this.get(`topics?${query}`)
   }
 }
