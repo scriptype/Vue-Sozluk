@@ -15,7 +15,7 @@ export default {
 
   methods: {
     getProfileUrl() {
-      return `profile/${this.user.name}--${this.user.id}`
+      return `/user/${this.user.name}--${this.user.id}`
     }
   }
 }
