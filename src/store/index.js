@@ -29,7 +29,7 @@ export default new Vuex.Store({
 
   actions: {
 
-    getUser({ commit, state }) {
+    getUser({ commit }) {
       commit('getUserStarted')
       api
         .getUser('S1JqHGo8M')
