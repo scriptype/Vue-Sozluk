@@ -6,9 +6,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    entries: [],
-    users: [],
-
     loggedIn: true,
 
     user: {},
@@ -23,74 +20,14 @@ export default new Vuex.Store({
     getRandomTopicError: null,
     getTopicStatus: null,
     getTopicError: null,
-
-    signUpStatus: null,
-    signUpError: null,
-    loginStatus: null,
-    loginError: null,
     getRecentTopicsError: null,
-    userToken: null,
-    createEntryStatus: null,
-    createUserStatus: null,
-    createTopicStatus: null
+
+    createEntryStatus: null
   },
 
-  getters: {
-
-    // Entries
-    entriesByTopic: state => topicID =>
-      state.entries.filter(entry => entry.topic === topicID),
-
-    entriesByUser: state => userID =>
-      state.entries.filter(entry => entry.user === userID),
-
-    // Topics
-    topicsByUser: state => userID =>
-      state.topics.filter(topic => topic.user === userID)
-
-  },
+  getters: {},
 
   actions: {
-
-    signUp({ commit }, userData) {
-      commit('signUpStarted')
-      api
-        .signUp(userData)
-        .then((token) => {
-          commit('signUpSuccess', { token, userData })
-          localStorage.setItem('userToken', token)
-        })
-        .catch(error => commit('signUpFail', error))
-    },
-
-    login({ commit }, credentials) {
-      commit('loginStarted')
-      api
-        .login(credentials)
-        .then((token) => {
-          commit('loginSuccess', token)
-          localStorage.setItem('userToken', token)
-        })
-        .catch(error => commit('loginFail', error))
-    },
-
-    logout({ commit, state }) {
-      commit('logoutStarted')
-
-      if (!state.userToken) {
-        commit('logoutFail', {
-          message: 'You are not logged in'
-        })
-      }
-
-      api
-        .logout(state.userToken)
-        .then(() => {
-          commit('logoutSuccess')
-          localStorage.removeItem('usertoken')
-        })
-        .catch(error => commit('logoutFail', error))
-    },
 
     getUser({ commit, state }) {
       commit('getUserStarted')
@@ -118,14 +55,6 @@ export default new Vuex.Store({
         })
         .then(entry => commit('createEntrySuccess', entry))
         .catch(() => commit('createEntryFail'))
-    },
-
-    createUser({ commit }, user) {
-      commit('createUserStarted')
-      api
-        .createUser(user)
-        .then(() => commit('createUserSuccess', user))
-        .catch(() => commit('createUserFail'))
     },
 
     createTopic({ commit }, topic) {
@@ -163,51 +92,6 @@ export default new Vuex.Store({
   },
 
   mutations: {
-
-    // SignUp
-    signUpStarted(state) {
-      state.signUpStatus = 'started'
-    },
-
-    signUpSuccess(state, token) {
-      state.signUpStatus = 'success'
-      state.usertoken = token
-    },
-
-    signUpFail(state, error) {
-      state.signUpStatus = 'fail'
-      state.signUpError = error
-    },
-
-    // Login
-    loginStarted(state) {
-      state.loginStatus = 'started'
-    },
-
-    loginSuccess(state, token) {
-      state.loginStatus = 'success'
-      state.usertoken = token
-    },
-
-    loginFail(state, error) {
-      state.loginStatus = 'fail'
-      state.loginError = error
-    },
-
-    // Logout
-    logoutStarted(state) {
-      state.logoutStatus = 'started'
-    },
-
-    logoutSuccess(state) {
-      state.logoutStatus = 'success'
-      state.usertoken = null
-    },
-
-    logoutFail(state, error) {
-      state.logoutStatus = 'fail'
-      state.logoutError = error
-    },
 
     getUserStarted(state) {
       state.getUserStatus = 'started'
@@ -288,19 +172,6 @@ export default new Vuex.Store({
 
     getUserContributedTopicsFail(state) {
       state.getUserContributedTopicsStatus = 'fail'
-    },
-
-    // User
-    createUserStarted(state) {
-      state.createUserStatus = 'started'
-    },
-
-    createUserSuccess(state) {
-      state.createUserStatus = 'success'
-    },
-
-    createUserFail(state) {
-      state.createUserStatus = 'fail'
     }
 
   }
