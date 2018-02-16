@@ -13,12 +13,15 @@
       slot="left-panel"
       :topics="recentTopics" />
 
-    <router-view slot="main-content"></router-view>
+    <router-view
+      :class="mainContentClassObject"
+      slot="main-content" />
   </main-layout>
 </template>
 
 
 <script>
+import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import MainLayout from '@/layouts/main'
 import TopPanel from './top-panel'
@@ -35,11 +38,24 @@ export default {
     LeftPanelHeader
   },
 
+  data() {
+    return {
+      isActive: true
+    }
+  },
+
   computed: {
     ...mapState([
       'user',
       'recentTopics'
-    ])
+    ]),
+
+    mainContentClassObject() {
+      return {
+        'main-content-container': true,
+        active: this.isActive
+      }
+    }
   },
 
   methods: {
@@ -70,10 +86,25 @@ export default {
 
   beforeRouteUpdate(to, from, next) {
     this.onChangeRoute(this, to, from)
-    next()
+    this.isActive = false
+    Vue.nextTick(() => {
+      this.isActive = true
+      next()
+    })
   }
 }
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.main-content-container {
+  opacity: 0;
+  transform: translateY(-.5em);
+
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all .3s;
+  }
+}
+</style>
