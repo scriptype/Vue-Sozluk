@@ -29,7 +29,7 @@ topicsApi.get('/', ({ query }, res) => {
   }
 })
 
-topicsApi.put('/', (req, res) => {
+topicsApi.post('/', (req, res) => {
   db
     .query({
       table: 'topics',

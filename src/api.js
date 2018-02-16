@@ -3,16 +3,6 @@ const querystring = require('querystring')
 const API_URL = 'http://localhost:8081'
 
 export default {
-  put(endpoint, payload) {
-    return fetch(`${API_URL}/${endpoint}`, {
-      method: 'PUT',
-      body: JSON.stringify(payload),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    }).then(response => response.json())
-  },
-
   get(endpoint) {
     return fetch(`${API_URL}/${endpoint}`, {
       method: 'GET'
@@ -20,7 +10,7 @@ export default {
   },
 
   post(endpoint, payload) {
-    return fetch(`${API_URL}/endpoint`, {
+    return fetch(`${API_URL}/${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: new Headers({
@@ -29,32 +19,8 @@ export default {
     }).then(response => response.json())
   },
 
-  signUp(data) {
-    return this.post('signUp', data)
-  },
-
-  login(credentials) {
-    return this.post('login', credentials)
-  },
-
-  logout(token) {
-    return this.post('logout', { token })
-  },
-
   createEntry(entry) {
-    return this.put('entries', entry)
-  },
-
-  createUser(user) {
-    return this.put('user', user)
-  },
-
-  createTopic(topic) {
-    return this.put('topic', topic)
-  },
-
-  getEntry(entryID) {
-    return this.get(`entries/${entryID}`)
+    return this.post('entries', entry)
   },
 
   getUser(userID) {

@@ -27,7 +27,7 @@ entriesApi.get('/', ({ query }, res) => {
   }
 })
 
-entriesApi.put('/', (req, res) => {
+entriesApi.post('/', (req, res) => {
   const modelData = {
     createdAt: Date.now(),
     lastUpdatedAt: Date.now(),

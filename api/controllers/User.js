@@ -11,7 +11,7 @@ usersApi.get('/', (req, res) => {
     .catch(err => res.sendStatus(404, err))
 })
 
-usersApi.put('/', (req, res) => {
+usersApi.post('/', (req, res) => {
   const modelData = {
     createdAt: Date.now(),
     name: req.body.name,
