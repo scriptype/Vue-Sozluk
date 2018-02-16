@@ -84,10 +84,6 @@ export default {
     @media (max-width: $sm-max) {
       flex-direction: column;
     }
-
-    @media (min-width: $lg-max) {
-      width: $lg-max;
-    }
   }
 
   &__top-panel {
@@ -126,7 +122,6 @@ export default {
   }
 
   &__left-panel {
-    flex: 1;
     display: none;
 
     @media (min-width: $sm-max) {
