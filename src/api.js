@@ -16,7 +16,13 @@ export default {
       headers: new Headers({
         'Content-Type': 'application/json'
       })
-    }).then(response => response.json())
+    }).then(response => {
+      try {
+        return response.json()
+      } catch (err) {
+        return response.text()
+      }
+    })
   },
 
   createEntry(entry) {

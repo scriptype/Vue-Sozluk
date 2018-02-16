@@ -57,6 +57,10 @@ export default new Vuex.Store({
         .catch(() => commit('createEntryFail'))
     },
 
+    pushOptimisticEntry({ commit }, entry) {
+      commit('pushOptimisticEntry', entry)
+    },
+
     createTopic({ commit }, topic) {
       commit('createTopicStarted')
       api
@@ -117,6 +121,10 @@ export default new Vuex.Store({
 
     createEntryFail(state) {
       state.createEntryStatus = 'fail'
+    },
+
+    pushOptimisticEntry(state, entry) {
+      state.activeTopic.entries.push(entry)
     },
 
     getRecentTopicsStarted(state) {
