@@ -32,7 +32,7 @@ export default new Vuex.Store({
     getUser({ commit }) {
       commit('getUserStarted')
       api
-        .getUser('S1JqHGo8M')
+        .getUser('HkjoAMMwf')
         .then(user => commit('getUserSuccess', user))
         .catch(() => commit('getUserSuccess'))
     },
@@ -47,14 +47,16 @@ export default new Vuex.Store({
 
     createEntry({ commit, state }, entryContent) {
       commit('createEntryStarted')
-      api
-        .createEntry({
-          userID: state.user.id,
-          topicID: state.activeTopic.id,
-          content: entryContent
-        })
-        .then(entry => commit('createEntrySuccess', entry))
-        .catch(() => commit('createEntryFail'))
+      setTimeout(() => {
+        api
+          .createEntry({
+            userID: state.user.id,
+            topicID: state.activeTopic.id,
+            content: entryContent
+          })
+          .then(entry => commit('createEntrySuccess', entry))
+          .catch(() => commit('createEntryFail'))
+      }, 1500)
     },
 
     pushOptimisticEntry({ commit }, entry) {
