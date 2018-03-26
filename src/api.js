@@ -16,7 +16,7 @@ export default {
       headers: new Headers({
         'Content-Type': 'application/json'
       })
-    }).then(response => {
+    }).then((response) => {
       try {
         return response.json()
       } catch (err) {
